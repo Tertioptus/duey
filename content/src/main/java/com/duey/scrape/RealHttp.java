@@ -55,45 +55,35 @@ public class RealHttp implements Http {
     }
 
     @Override
-    public void post(String url, String parameters, String... cookies) throws Exception {
+    public void post(String host, String url, Response response) throws Exception {
         URL obj = new URL(url);
         HttpsURLConnection conn = (HttpsURLConnection) obj.openConnection();
 
         // Acts like a browser
         conn.setUseCaches(false);
         conn.setRequestMethod("POST");
-        conn.setRequestProperty("Host", "pac.sals.edu");
+        conn.setRequestProperty("Host", host);
         conn.setRequestProperty("User-Agent", USER_AGENT);
         conn.setRequestProperty("Accept",
                 "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
         conn.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-        for (String cookie : cookies) {
+        for (String cookie : response.cookies()) {
             conn.addRequestProperty("Cookie", cookie.split(";", 1)[0]);
         }
         conn.setRequestProperty("Connection", "keep-alive");
         conn.setRequestProperty("Referer", url);
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setRequestProperty("Content-Length", Integer.toString(parameters.length()));
+        conn.setRequestProperty("Content-Length", Integer.toString(response.parameters().length()));
 
         conn.setDoOutput(true);
         conn.setDoInput(true);
 
         // Send post request
         DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-        wr.writeBytes(parameters);
+        wr.writeBytes(response.parameters());
         wr.flush();
         wr.close();
 
-        int responseCode = conn.getResponseCode();
-
-        BufferedReader in =
-                new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
+        //TODO throw Exception on bad response code
     }
 }

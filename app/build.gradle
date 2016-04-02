@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    compile project(":scraper");
+    compile project(':content');
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'net.sourceforge.htmlcleaner:htmlcleaner:2.6'

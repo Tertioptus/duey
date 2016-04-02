@@ -10,7 +10,16 @@ import java.util.Set;
  * @since ?
  */
 public class Response {
+
     public Response(String html, Collection<String> cookies) {
 
+    }
+
+    public Set<String> cookies() {
+        return null;
+    }
+
+    public String parameters () {
+        return null;
     }
 }

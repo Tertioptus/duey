@@ -14,10 +14,10 @@ import java.util.Set;
 public class StatusPage {
 
 
-    public StatusPage(Http http, SiteMap siteMap, Set<String> cookies) {
+    public StatusPage(Http http, SiteMap siteMap) {
     }
 
-    public List<Loan> loans(){
+    public List<Loan> loans(Set<String> cookies){
         return new LoanTable("html").loans();
     }
 }

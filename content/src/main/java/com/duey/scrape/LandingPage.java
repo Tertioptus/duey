@@ -13,11 +13,11 @@ import java.util.Set;
  */
 public class LandingPage {
 
-    public LandingPage(Http http, SiteMap siteMap, Set<String> cookies) {
+    public LandingPage(Http http, SiteMap siteMap) {
 
     }
 
-    public String name() {
+    public String name(Set<String> cookies) {
         return new HTML("html").content("path");
     }
 }
